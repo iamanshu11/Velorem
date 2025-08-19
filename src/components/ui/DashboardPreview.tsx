@@ -228,7 +228,7 @@ export default function App() {
     const topCorridorAmount = currentChart.corridors[0]?.amount || 1;
 
     return (
-        <div className=" bg-gray-50 dark:bg-gray-900">
+        <div className="">
             <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-2xl border border-gray-200">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left Column */}

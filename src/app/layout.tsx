@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Raleway } from "next/font/google";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -10,13 +11,19 @@ export const metadata: Metadata = {
   description: "Velorem",
 };
 
+const raleway = Raleway({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"], // weights you need
+  variable: "--font-raleway",     // optional CSS variable
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={raleway.variable} suppressHydrationWarning>
       <head>
         {/* Prevent flash of light mode */}
         <script
