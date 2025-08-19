@@ -33,36 +33,41 @@ interface ChartData {
 
 type RangeKey = "7D" | "30D" | "90D" | "1Y";
 
-// Simple flag component to replace react-country-flag
-const CountryFlag: React.FC<{ countryCode: string; title: string; style?: React.CSSProperties }> = ({ 
+// Flag component using actual flag images
+const CountryFlag: React.FC<{ countryCode: string; country: string; style?: React.CSSProperties }> = ({ 
     countryCode, 
-    title, 
-    style = { width: '20px', height: '20px' } 
+    country, 
+    style 
 }) => {
-    const flagEmojis: Record<string, string> = {
-        'IN': '🇮🇳',
-        'NG': '🇳🇬',
-        'PH': '🇵🇭',
-        'PK': '🇵🇰'
+    const defaultStyle = {
+        width: '20px',
+        height: '15px',
+        objectFit: 'cover' as const,
+        borderRadius: '2px',
+        ...style
     };
-    
+
     return (
-        <span 
-            style={style} 
-            title={title}
-            className="inline-block"
-        >
-            {flagEmojis[countryCode] || '🏳️'}
-        </span>
+        <img 
+            src={`https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${countryCode.toLowerCase()}.svg`}
+            alt={`${country} flag`}
+            title={country}
+            style={defaultStyle}
+            onError={(e) => {
+                // Fallback to a different CDN if the first one fails
+                const img = e.target as HTMLImageElement;
+                img.src = `https://flagsapi.com/${countryCode}/flat/32.png`;
+            }}
+        />
     );
 };
 
 // --- KPICard Component ---
 const KPICard: React.FC<KPICardProps> = ({ title, value, trend, trendDirection }) => (
-    <div className="dashboard-preview-card bg-white dark:bg-gray-800 dark:text-white p-5 rounded-xl border border-gray-200 transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
-        <p className="text-sm ">{title}</p>
+    <div className="bg-white dark:bg-gray-800 dark:text-white p-5 rounded-xl border border-gray-200 transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
+        <p className="text-sm text-gray-600 dark:text-gray-300">{title}</p>
         <div className="flex items-end justify-between mt-1">
-            <p className="text-3xl font-bold ">{value}</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
             <p
                 className={`flex items-center text-sm font-semibold ${trendDirection === "up" ? "text-green-600" : "text-red-600"
                     }`}
@@ -104,38 +109,60 @@ const KPICard: React.FC<KPICardProps> = ({ title, value, trend, trendDirection }
 
 // --- ActivityIcon Component ---
 const ActivityIcon: React.FC<ActivityIconProps> = ({ status }) => {
-    const getIcon = (): React.ReactElement => {
-        switch (status) {
-            case "Settled":
-                return (
-                    <div className="w-8 h-8 bg-green-100 text-green-600 flex items-center justify-center rounded-full mr-3">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                );
-            case "Processing":
-                return (
-                    <div className="w-8 h-8 bg-blue-100 text-blue-600 flex items-center justify-center rounded-full mr-3">
-                        <svg className="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                    </div>
-                );
-            case "Failed":
-                return (
-                    <div className="w-8 h-8 bg-red-100 text-red-600 flex items-center justify-center rounded-full mr-3">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </div>
-                );
-            default:
-                return <div></div>;
-        }
+    const icons: Record<ActivityIconProps["status"], React.ReactElement> = {
+        Settled: (
+            <div className="w-8 h-8 bg-green-100 text-green-600 flex items-center justify-center rounded-full mr-3">
+                <svg className="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+        ),
+        Processing: (
+            <div className="w-8 h-8 bg-blue-100 text-blue-600 flex items-center justify-center rounded-full mr-3">
+                <svg
+  className="w-6 h-6 animate-spin text-gray-700"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+>
+  <circle
+    className="opacity-25"
+    cx="12"
+    cy="12"
+    r="10"
+    stroke="currentColor"
+    strokeWidth="4"
+  ></circle>
+  <path
+    className="opacity-75"
+    fill="currentColor"
+    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+  ></path>
+</svg>
+            </div>
+        ),
+        Failed: (
+            <div className="w-8 h-8 bg-red-100 text-red-600 flex items-center justify-center rounded-full mr-3">
+                <svg
+  className="w-6 h-6 text-red-500 animate-pulse"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    d="M6 18L18 6M6 6l12 12"
+  />
+</svg>
+
+            </div>
+        ),
     };
 
-    return getIcon();
+    return icons[status] || null;
 };
 
 // --- Main Dashboard Preview Component ---
@@ -201,8 +228,8 @@ export default function App() {
     const topCorridorAmount = currentChart.corridors[0]?.amount || 1;
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg font-sans">
-            <div className="max-w-6xl mx-auto bg-white dark:bg-gray-500 p-4 sm:p-6 rounded-2xl shadow-2xl border border-gray-200">
+        <div className=" bg-gray-50 dark:bg-gray-900">
+            <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-2xl border border-gray-200">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left Column */}
                     <div className="lg:col-span-1 space-y-6">
@@ -214,23 +241,22 @@ export default function App() {
                         />
                         <KPICard title="Success Rate" value="98.2%" trend="+0.5%" trendDirection="up" />
 
-                        <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-5 rounded-xl">
-                            <h4 className="font-semibold mb-4">Top Corridors</h4>
+                        <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-5 rounded-xl border border-gray-200">
+                            <h4 className="font-semibold mb-4 text-gray-900 dark:text-white">Top Corridors</h4>
                             <div className="space-y-4">
                                 {currentChart.corridors.map((corridor) => (
                                     <div key={corridor.country}>
                                         <div className="flex justify-between text-sm mb-1">
-                                            <span className="font-medium flex items-center gap-1">
+                                            <span className="font-medium flex items-center gap-2">
                                                 <CountryFlag
                                                     countryCode={corridor.countryCode}
-                                                    style={{ width: '20px', height: '20px' }}
-                                                    title={corridor.country}
+                                                    country={corridor.country}
                                                 />
-                                                {corridor.country}
+                                                <span className="text-gray-900 dark:text-white">{corridor.country}</span>
                                             </span>
-                                            <span className="text-gray-500">{corridor.display}</span>
+                                            <span className="text-gray-500 dark:text-gray-400">{corridor.display}</span>
                                         </div>
-                                        <div className="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                                             <div
                                                 className="bg-indigo-500 h-1.5 rounded-full"
                                                 style={{
@@ -248,15 +274,15 @@ export default function App() {
                     <div className="lg:col-span-2 space-y-6">
                         <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-6 rounded-xl border border-gray-200">
                             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-4">
-                                <h4 className="font-semibold ">{currentChart.title}</h4>
-                                <div className="bg-gray-200 p-1 rounded-lg  text-xs font-medium text-gray-600">
+                                <h4 className="font-semibold text-gray-900 dark:text-white">{currentChart.title}</h4>
+                                <div className="bg-gray-200 dark:bg-gray-700 p-1 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-300">
                                     {(["7D", "30D", "90D", "1Y"] as RangeKey[]).map((range) => (
                                         <button
                                             key={range}
                                             onClick={() => setActiveRange(range)}
                                             className={`px-3 py-1 rounded-md transition-colors ${activeRange === range
                                                 ? "bg-indigo-600 text-white font-semibold"
-                                                : ""
+                                                : "hover:bg-gray-300 dark:hover:bg-gray-600"
                                                 }`}
                                         >
                                             {range}
@@ -316,19 +342,20 @@ export default function App() {
                         </div>
 
                         {/* Recent Activity */}
-                        <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-5 rounded-xl">
-                            <h4 className="font-semibold mb-4">Recent Activity</h4>
+                        <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-5 rounded-xl border border-gray-200">
+                            <h4 className="font-semibold mb-4 text-gray-900 dark:text-white">Recent Activity</h4>
                             <div className="space-y-3 text-sm">
                                 {/* Row */}
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-2 rounded-md gap-2">
                                     <div className="flex items-center gap-2">
                                         <ActivityIcon status="Settled" />
-                                        <div className="flex flex-wrap items-center gap-1">
-                                            <span className="font-medium">Payout to A. Sharma</span>
-                                            <CountryFlag countryCode="IN" style={{ width: 16, height: 16 }} title="India" />
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <span className="font-medium text-gray-900 dark:text-white">Payout to A. Sharma</span>
+                                            <CountryFlag countryCode="IN" country="India" style={{ width: '16px', height: '12px' }} />
+                                            <span className="text-xs text-gray-500 dark:text-gray-400">India</span>
                                         </div>
                                     </div>
-                                    <div className="text-gray-500 font-medium text-left sm:text-right">
+                                    <div className="text-gray-500 dark:text-gray-400 font-medium text-left sm:text-right">
                                         Settled
                                     </div>
                                 </div>
@@ -337,12 +364,13 @@ export default function App() {
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-2 rounded-md gap-2">
                                     <div className="flex items-center gap-2">
                                         <ActivityIcon status="Processing" />
-                                        <div className="flex flex-wrap items-center gap-1">
-                                            <span className="font-medium">Payout to B. Okoro</span>
-                                            <CountryFlag countryCode="NG" style={{ width: 16, height: 16 }} title="Nigeria" />
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <span className="font-medium text-gray-900 dark:text-white">Payout to B. Okoro</span>
+                                            <CountryFlag countryCode="NG" country="Nigeria" style={{ width: '16px', height: '12px' }} />
+                                            <span className="text-xs text-gray-500 dark:text-gray-400">Nigeria</span>
                                         </div>
                                     </div>
-                                    <div className="text-gray-500 font-medium text-left sm:text-right">
+                                    <div className="text-gray-500 dark:text-gray-400 font-medium text-left sm:text-right">
                                         Processing
                                     </div>
                                 </div>
@@ -351,12 +379,13 @@ export default function App() {
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-2 rounded-md gap-2">
                                     <div className="flex items-center gap-2">
                                         <ActivityIcon status="Failed" />
-                                        <div className="flex flex-wrap items-center gap-1">
-                                            <span className="font-medium">Payout to D. Khan</span>
-                                            <CountryFlag countryCode="PH" style={{ width: 16, height: 16 }} title="Philippines" />
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <span className="font-medium text-gray-900 dark:text-white">Payout to D. Khan</span>
+                                            <CountryFlag countryCode="PH" country="Philippines" style={{ width: '16px', height: '12px' }} />
+                                            <span className="text-xs text-gray-500 dark:text-gray-400">Philippines</span>
                                         </div>
                                     </div>
-                                    <div className="text-gray-500 font-medium text-left sm:text-right">
+                                    <div className="text-gray-500 dark:text-gray-400 font-medium text-left sm:text-right">
                                         Failed
                                     </div>
                                 </div>

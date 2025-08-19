@@ -6,7 +6,7 @@ import DashboardPreview from "@/components/ui/DashboardPreview";
 
 export default function HomeHero() {
     return (
-        <section className="min-h-screen flex items-center bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <section className=" flex items-center bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
             <div className="container mx-auto text-center  px-6 lg:px-6 py-16 gap-6 w-full">
                 {/* Left Side */}
                 <div className="flex flex-col justify-center gap-6 mb-6">
@@ -22,16 +22,10 @@ export default function HomeHero() {
 
                 {/* Right Side */}
                 <div className="relative flex justify-center md:justify-center w-full ">
-                    <div className="relative w-full max-w-6xl h-auto  overflow-hidden ">
+                    <div className="relative w-full h-auto  overflow-hidden ">
                         <DashboardPreview />
                         {/* CTA Buttons */}
-                        <div className="flex flex-wrap justify-center md:justify-center items-center gap-4 mt-4">
-                            {/* <Link
-                            href="/get-started"
-                            className="rounded-full bg-blue-600 px-6 py-3 text-white font-medium hover:bg-blue-700 transition"
-                        >
-                            Get Started for Free
-                        </Link> */}
+                        <div className="flex flex-wrap justify-center md:justify-center items-center gap-4 mt-5">
                             <Link
                                 href="/contact"
                                 className="rounded-full bg-[#4EAFFF] px-6 py-3 text-[#fff] font-medium  transition dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
@@ -39,10 +33,9 @@ export default function HomeHero() {
                                 Talk to Sales
                             </Link>
                         </div>
+
                     </div>
-
                 </div>
-
 
             </div>
         </section>
