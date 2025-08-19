@@ -226,7 +226,7 @@ const GlobalMarketsSection: React.FC = () => {
     const currentCountries = activeTab === 'asia' ? asianCountries : africanCountries;
 
     return (
-        <section className="relative py-16 bg-[#EBF6FF] dark:bg-gray-800 text-gray-900 dark:text-gray-100 overflow-hidden">
+        <section className="relative py-16 bg-[#fff] dark:bg-gray-800 text-gray-900 dark:text-gray-100 overflow-hidden">
             <div className="relative container mx-auto px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-16">
