@@ -235,7 +235,7 @@ const GlobalMarketsSection: React.FC = () => {
                         <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Global Network</span>
                     </div>
 
-                    <h2 className="text-2xl lg:text-5xl font-extrabold tracking-tight sm:text-4xl leading-tight mb-4">
+                    <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight sm:text-5xl leading-tight mb-4">
                         Reach Key Markets
                         <br />
                         Across the Globe

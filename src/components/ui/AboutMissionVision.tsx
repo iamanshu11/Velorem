@@ -2,15 +2,15 @@ import React from "react";
 
 const MissionVision: React.FC = () => {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-16 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div className="container mx-auto   px-6 lg:px-6  gap-6 w-full">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           {/* Text Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+            <h2 className="text-3xl md:text-5xl font-bold">
               Our Mission
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg ">
               To empower Money Transfer Operators and global businesses with a
               single, intelligent platform that simplifies network management,
               optimizes transaction costs, and ensures compliance, enabling

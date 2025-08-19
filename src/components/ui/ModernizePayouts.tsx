@@ -17,7 +17,7 @@ const ModernizePayouts: React.FC = () => {
       <div className="container flex flex-col-reverse md:flex-row items-center justify-between mx-auto px-6 lg:px-6 gap-6 w-full">
         {/* Left Content */}
         <div className="md:w-1/2 mt-8 md:mt-0">
-          <h2 className="text-2xl lg:text-4xl font-extrabold tracking-tight sm:text-4xl leading-tight mb-4">
+          <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight sm:text-5xl leading-tight mb-4">
             Ready to Modernize Your Payouts?
           </h2>
           <p className="mb-6">
