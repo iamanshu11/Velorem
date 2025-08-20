@@ -134,7 +134,7 @@ const GetStartedSection = () => {
     <section
       className="relative bg-gradient-to-b from-[#EBF6FF] to-white 
       dark:from-gray-900 dark:to-gray-800 dark:text-white text-black 
-      py-20 overflow-hidden"
+      py-16 overflow-hidden"
     >
       {/* Background Glow */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500/20 blur-[150px] rounded-full" />
@@ -150,7 +150,7 @@ const GetStartedSection = () => {
         </p>
 
         {/* Steps Grid */}
-        <div className="relative grid md:grid-cols-3 gap-12 md:gap-8">
+        <div className="relative grid md:grid-cols-3 gap-6 md:gap-8">
           {steps.map((step, index) => (
             <div
               key={index}

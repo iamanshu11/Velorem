@@ -94,7 +94,7 @@ const FeatureDashboard: React.FC = () => {
               <div className="relative z-10">
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-2">
-                    <Shuffle className="w-5 h-5 text-white opacity-80" />
+                    <Shuffle className="w-5 h-5 dark:text-white text-black opacity-80" />
                     <span className="text-sm opacity-70">Optimize Every</span>
                   </div>
                   <span className="text-xs opacity-50">Transaction</span>
@@ -124,15 +124,30 @@ const FeatureDashboard: React.FC = () => {
               </div>
               <div>
                 <div className="flex justify-between items-center mb-6">
-                  <ClipboardCheck className="w-6 h-6 opacity-80 md:mt-0 mt-3" />
+                  <ClipboardCheck className="w-6 h-6 dark:text-white text-black opacity-80 md:mt-0 mt-3" />
                   <span className="text-sm opacity-70">AML/sanctions screening</span>
                 </div>
-                <div className="text-4xl font-bold mb-4">AML/sanctions</div>
+                <div className="text-4xl font-bold mb-4">AML</div>
                 <p className="text-sm opacity-80 leading-relaxed">
                   Automate AML/sanctions screening on every payout and get a single, unified ledger for all your transaction data. See your entire financial picture in real-time.
                 </p>
               </div>
             </div>
+            {/* <div className="relative  z-10">
+                <div className="flex justify-between items-center mb-4">
+                  <div className="flex items-center gap-2">
+                    <Shuffle className="w-5 h-5 text-white opacity-80" />
+                    <span className="text-sm opacity-70">Optimize Every</span>
+                  </div>
+                  <span className="text-xs opacity-50">Transaction</span>
+                </div>
+                <br></br> <br></br> 
+                <div className="text-4xl font-bold mb-3">Transaction</div>
+                <br></br> <br></br>
+                <p className="text-sm opacity-80">
+                  Our intelligent routing engine automatically selects the fastest and most cost-effective payout channel, with automated retries to maximize success rates.
+                </p>
+              </div> */}
           </div>
         </div>
       </div>
