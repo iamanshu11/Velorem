@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutHero: React.FC = () => {
   return (
-    <section className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-16  text-center ">
+    <section className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-16  text-center mt-8">
       <div className="container mx-auto text-center  px-6 lg:px-6  gap-6 w-full">
         <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight sm:text-5xl leading-tight mb-4">
           We're building the{" "} <br></br>

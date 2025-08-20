@@ -2,7 +2,7 @@ import React from "react";
 
 const ContactSection: React.FC = () => {
   return (
-    <main className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-16   ">
+    <main className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-16 mt-8">
       <div className="container mx-auto   px-6 lg:px-6  gap-6 w-full">
         {/* Heading */}
         <div className="text-center mb-16">

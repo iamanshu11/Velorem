@@ -6,7 +6,7 @@ import DashboardPreview from "@/components/ui/DashboardPreview";
 
 export default function HomeHero() {
     return (
-        <section className=" flex items-center bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 ">
+        <section className=" flex items-center bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 mt-8">
             <div className="container mx-auto text-center  px-6 lg:px-6 py-16 gap-6 w-full">
                 {/* Left Side */}
                 <div className="flex flex-col justify-center gap-6 mb-6">
